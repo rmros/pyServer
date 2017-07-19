@@ -1,3 +1,4 @@
+sudo: required
 language: python
 python:
   - "2.7"
@@ -7,7 +8,7 @@ install:
   - pipreqs .
   - pip install -r ./requirements.txt
 before_script:
-  - ./start-server.sh
+  - sudo ./start-server.sh
 script:
   # Network Information
   - current_ip="$(curl --silent --show-error --fail ipecho.net/plain)"
