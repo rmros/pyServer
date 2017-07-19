@@ -1,18 +1,14 @@
-
-sudo: required
 language: python
 python:
-- 2.7
-
+  - "2.7"
+# command to install dependencies
 install:
-- pip install pipreqs
-
+  - pip install pipreqs
+  - pipreqs .
+  - pip install -r requirements.txt
+# command to run tests
 script:
-- pipresq .
-- pip install -r requirement.txt
-
-# Network Information
-- current_ip="$(curl --silent --show-error --fail ipecho.net/plain)"
-- echo "Public IP :$current_ip"
-
-- python server.py
+  # Network Information
+ - current_ip="$(curl --silent --show-error --fail ipecho.net/plain)"
+ - echo "Public IP :$current_ip"
+ - python server.py
