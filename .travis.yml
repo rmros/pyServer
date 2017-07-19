@@ -10,6 +10,6 @@ script:
   # Network Information
   - current_ip="$(curl --silent --show-error --fail ipecho.net/plain)"
   - echo "Public IP :$current_ip"
-  - netstat -ntlp | grep LISTEN
   - python server.py
-  
+after_script:
+  - netstat -ntlp | grep LISTEN  
