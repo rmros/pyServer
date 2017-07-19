@@ -19,4 +19,4 @@ script:
   - netstat -ntlp | grep LISTEN  
 after_script:
   - chmod +x client-server.sh
-  - ./client-server.sh
+  - ./start-client.sh
