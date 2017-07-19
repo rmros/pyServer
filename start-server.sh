@@ -1,3 +1,3 @@
 #!/bin/bash
 python server.py &
-sleep 3
+sleep 10

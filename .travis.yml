@@ -17,3 +17,6 @@ script:
   - current_ip="$(curl --silent --show-error --fail ipecho.net/plain)"
   - echo "Public IP :$current_ip"
   - netstat -ntlp | grep LISTEN  
+after_script:
+  - chmod +x client-server.sh
+  - ./client-server.sh
