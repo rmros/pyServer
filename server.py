@@ -18,6 +18,7 @@ serversocket.bind((host, port))
 serversocket.listen(5)                                           
 
 i= 0
+print "server is running"
 while True:
     # establish a connection
     clientsocket,addr = serversocket.accept()      
