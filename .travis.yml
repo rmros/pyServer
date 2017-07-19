@@ -6,10 +6,10 @@ install:
   - pip install pipreqs
   - pipreqs .
   - pip install -r ./requirements.txt
+before_script:
+  - ./start-server.sh
 script:
   # Network Information
   - current_ip="$(curl --silent --show-error --fail ipecho.net/plain)"
   - echo "Public IP :$current_ip"
-  - nohup python server.py
-after_script:
   - netstat -ntlp | grep LISTEN  
