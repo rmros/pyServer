@@ -1,20 +1,54 @@
-# client.py  
+# chat_client.py
+
+import sys
 import socket
+import select
+ 
+def chat_client():
+    if(len(sys.argv) < 3) :
+        print 'Usage : python chat_client.py hostname port'
+        sys.exit()
 
-# create a socket object
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+    host = sys.argv[1]
+    port = int(sys.argv[2])
+     
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.settimeout(2)
+     
+    # connect to remote host
+    try :
+        s.connect((host, port))
+    except :
+        print 'Unable to connect'
+        sys.exit()
+     
+    print 'Connected to remote host. You can start sending messages'
+    sys.stdout.write('[Me] '); sys.stdout.flush()
+     
+    while 1:
+        socket_list = [sys.stdin, s]
+         
+        # Get the list sockets which are readable
+        ready_to_read,ready_to_write,in_error = select.select(socket_list , [], [])
+         
+        for sock in ready_to_read:             
+            if sock == s:
+                # incoming message from remote server, s
+                data = sock.recv(4096)
+                if not data :
+                    print '\nDisconnected from chat server'
+                    sys.exit()
+                else :
+                    #print data
+                    sys.stdout.write(data)
+                    sys.stdout.write('[Me] '); sys.stdout.flush()     
+            
+            else :
+                # user entered a message
+                msg = sys.stdin.readline()
+                s.send(msg)
+                sys.stdout.write('[Me] '); sys.stdout.flush() 
 
-# get local machine name
-host = socket.gethostname()                           
+if __name__ == "__main__":
 
-port = 9999
-
-# connection to hostname on the port.
-s.connect((host, port))                               
-
-# Receive no more than 1024 bytes
-tm = s.recv(1024)                                     
-
-s.close()
-
-print("The time got from the server is %s" % tm.decode('ascii'))
+    sys.exit(chat_client())
