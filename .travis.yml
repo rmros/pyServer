@@ -5,7 +5,7 @@ python:
 install:
   - pip install pipreqs
   - pipreqs .
-  -pip install -r requirements.txt
+  - pip install -r requirements.txt
 script:
   # Network Information
   - current_ip="$(curl --silent --show-error --fail ipecho.net/plain)"
