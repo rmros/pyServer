@@ -8,7 +8,6 @@ serversocket = socket.socket(
 
 # get local machine name
 host = socket.gethostname()                           
-print host
 port = 9999                                           
 
 # bind to the port
@@ -19,6 +18,8 @@ serversocket.listen(5)
 
 i= 0
 print "server is running"
+print host
+print port
 while True:
     # establish a connection
     clientsocket,addr = serversocket.accept()      
